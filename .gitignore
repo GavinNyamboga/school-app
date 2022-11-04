@@ -16,3 +16,4 @@
 
 ### CONFIG FILES ###
 .env
+properties.env
