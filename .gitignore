@@ -1,1 +1,18 @@
-.idea/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+### CONFIG FILES ###
+.env

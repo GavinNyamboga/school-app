@@ -1,6 +1,11 @@
 package config
 
-import _ "github.com/go-sql-driver/mysql"
+import (
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
+)
 
 type Config struct {
 	DB *DBConfig
@@ -19,13 +24,25 @@ type DBConfig struct {
 func GetConfig() *Config {
 	return &Config{
 		DB: &DBConfig{
-			Dialect:  "mysql",
-			Host:     "127.0.0.1",
+
+			Dialect:  goDotEnvVariable("DIALECT"), //mysql
+			Host:     goDotEnvVariable("DB_HOST"), //"127.0.0.1",
 			Port:     3306,
-			Username: "admin",
-			Password: "admin",
-			Name:     "go_jwt",
-			Charset:  "utf8",
+			Username: goDotEnvVariable("DB_USERNAME"), //"admin",
+			Password: goDotEnvVariable("DB_PASSWORD"), //"admin",
+			Name:     goDotEnvVariable("DB_NAME"),     //"school_app",
+			Charset:  goDotEnvVariable("CHARSET"),     //"utf8",
 		},
 	}
+}
+
+func goDotEnvVariable(key string) string {
+	// load .env file
+	err := godotenv.Load("properties.env")
+
+	if err != nil {
+		log.Fatalf("Error loading properties.env file")
+	}
+
+	return os.Getenv(key)
 }
